@@ -6,29 +6,36 @@
 
 std::vector<int> solution(std::vector<int> &A, int K) 
 {
-	// write your code in C++14 (g++ 6.2.0)
-	int rotations = K;
-	std::vector<int> start;
-	start = A;
-	std::vector<int> finish;
-	int vecSize = start.size();
-	std::cout << vecSize << std::endl;
-	std::cout << finish.size() << std::endl;
-	for (int i = 1; i <= rotations; i++)
+	std::vector<int> start = A;
+	size_t vecSize = start.size();
+	size_t idx = vecSize - 1;
+	std::vector<int> finish(vecSize, 0);
+	int rotate = K;
+	for (int v : start)
+		std::cout << "Num: " << v << std::endl;
+	for (int w : finish)
+		std::cout << "Num: " << w << std::endl;
+	std::cout << "Rotations: " << rotate << std::endl;
+	std::cout << "Vector size: " << vecSize << std::endl;
+	std::cout << "Index Length: " << idx << std::endl;
+	for (int i = 1; i <= rotate; i++)
 	{
-		std::cout << "rotating!..." << std::endl;
-		for (int j = vecSize; j > 0; j--)
-			if (j == vecSize)
-				finish.at(0) = start.at(j);
+		for (size_t q = 0; q <= idx; q++)
+		{
+			if (q == idx)
+				(finish)[0] = (start)[q];
 			else
-				finish.at(j + 1) = start.at(j);
+				(finish)[q + 1] = (start)[q];
+		}
+		start.clear();
+		start = finish;
 	}
-	return finish;
+	return start;
 }
 int main()
 {
-	std::vector<int> testNums = { 5,4,3,2,1 };
-	int flips = 4;
+	std::vector<int> testNums = { 9,7,0,5,3,3,4,8,3,2,6,1,6,0 };
+	int flips = 8;
 	std::vector<int> results = solution(testNums, flips);
 	for (int i : results)
 		std::cout << i << std::endl;
